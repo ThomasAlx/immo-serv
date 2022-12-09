@@ -23,9 +23,9 @@ class Loan:
 
     def pick_rate(self):
         # TODO: updated rates - hardcoded for now:
-        if (self.house_price>1000000):
+        if (self.duration<(5*12)):
             self.rate = 0.002
-        elif (self.house_price>500000):
+        elif (self.house_price<(10*12)):
             self.rate = 0.007
         else:
             self.rate = 0.01

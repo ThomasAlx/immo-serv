@@ -1,4 +1,4 @@
-import backendserv
+from backendserv import BackEndService
 from loan import Loan
 from user import User
 import pandas as pd
@@ -9,8 +9,7 @@ class NewService:
     def __init__(self, house_data=None):
         self.house_data = house_data
         self.users = []
-        self.proposed_loans = {}  # dictionary of lists  
-        self.accepted_loans = {}  # dictionary
+        self.loans = {}  # dictionary of lists
         pass
 
     def prompt_choice(self, user_id):
@@ -32,7 +31,7 @@ class NewService:
              'House ID'     :   [proposal.house_id],
              'House Price\n[\N{euro sign}]'  :   [proposal.house_price],
              'Loan Duration\n[months]':   [proposal.duration],
-             'rate'         :   [proposal.rate],
+             'Rate'         :   [proposal.rate],
              'Final Price\n[\N{euro sign}]'  :   [proposal.total_amount],
              'Montlhy Pay\n[\N{euro sign}]'  :   [proposal.monthly_inst]}) 
         print("\n\n##############################################################")
@@ -60,13 +59,16 @@ class NewService:
         return proposal
 
     def add_loan(self, proposal, answer, user_id):
-        # adds a loan to proposed list
-        self.proposed_loans[user_id].append(proposal)
-
         # if accepted, it also adds it to the accepted list
         if (answer):
             self.users[user_id].chose_loan_flag = True
-            self.accepted_loans[user_id] = proposal
+            proposal.status = "accepted"
+
+        # adds a loan to proposed list
+        self.loans[user_id].append(proposal)
+
+
+            # self.accepted_loans[user_id] = proposal
 
     # def remove_loan(self):
     #     pass
@@ -89,7 +91,7 @@ class NewService:
 
     def add_user(self, new_user):
         self.users.append(new_user)
-        self.proposed_loans[new_user.id] = []
+        self.loans[new_user.id] = []
 
     # def get_user(self):
     #     pass
@@ -107,9 +109,9 @@ class NewService:
 
 #-------------------------------------
 
-    def visualize(self):
+    def visualise(self):
         # invokes backend service
-        pass
+        BackEndService.visualise(self)
 
 
 
