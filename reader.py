@@ -13,3 +13,6 @@ class Reader:
     @staticmethod
     def load_data(folder):
         return np.load(os.path.join(folder, "immo-cleaned-data.npy"), allow_pickle=True)
+
+
+
