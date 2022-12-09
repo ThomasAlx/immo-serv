@@ -1,6 +1,8 @@
 import backendserv
 from loan import Loan
 from user import User
+import pandas as pd
+from tabulate import tabulate
 
 class NewService:
 
@@ -17,8 +19,7 @@ class NewService:
 
         proposal = self.calculate_loan(loan_duration, user_id)
 
-        # TODO: finish that
-        # self.visualise_proposal(proposal)
+        self.visualise_proposal(proposal, user_id)
 
         answer = int(input("\nPress 1 for yes, or 0 for no:\t"))
 
@@ -26,8 +27,18 @@ class NewService:
 
         return answer
 
-    def visualise_proposal(proposal):
-        pass
+    def visualise_proposal(self, proposal, user_id):
+        df = pd.DataFrame({'User ID'      :   [self.users[user_id].id],
+             'House ID'     :   [proposal.house_id],
+             'House Price\n[\N{euro sign}]'  :   [proposal.house_price],
+             'Loan Duration\n[months]':   [proposal.duration],
+             'rate'         :   [proposal.rate],
+             'Final Price\n[\N{euro sign}]'  :   [proposal.total_amount],
+             'Montlhy Pay\n[\N{euro sign}]'  :   [proposal.monthly_inst]}) 
+        print("\n\n##############################################################")
+        print("New Proposal:\n")
+        print(tabulate(df, headers='keys', tablefmt='psql'))
+        
 
     def calculate_loan(self, duration,user_id):
         # Input:
@@ -36,10 +47,11 @@ class NewService:
         # Output:
         #       - proposal: loan instance 
 
-        house_price = self.house_data[self.users[user_id].house_id_interest]
+        house_id = self.users[user_id].house_id_interest
+        house_price = self.house_data[house_id]
         
         # loan interest
-        proposal = Loan(house_price, duration)
+        proposal = Loan(house_id, house_price, duration)
 
         # calculate loan specifics
         proposal.loan_calculator()
@@ -56,22 +68,22 @@ class NewService:
             self.users[user_id].chose_loan_flag = True
             self.accepted_loans[user_id] = proposal
 
-    def remove_loan(self):
-        pass
+    # def remove_loan(self):
+    #     pass
 
-    def load_loans(self):
-        # uses reader to load user database
-        pass
+    # def load_loans(self):
+    #     # uses reader to load user database
+    #     pass
     
-    def store_loans(self):
-        # uses reader to write in json file
-        pass
+    # def store_loans(self):
+    #     # uses reader to write in json file
+    #     pass
 
-    def get_loan(self):
-        pass
+    # def get_loan(self):
+    #     pass
 
-    def set_loan_status(self):
-        pass
+    # def set_loan_status(self):
+    #     pass
 
 #-------------------------------------
 
@@ -79,19 +91,19 @@ class NewService:
         self.users.append(new_user)
         self.proposed_loans[new_user.id] = []
 
-    def get_user(self):
-        pass
+    # def get_user(self):
+    #     pass
 
-    def load_users(self):
-        # uses reader to load user database
-        pass
+    # def load_users(self):
+    #     # uses reader to load user database
+    #     pass
     
-    def store_users(self):
-        # uses reader to write in json file
-        pass
+    # def store_users(self):
+    #     # uses reader to write in json file
+    #     pass
 
-    def remove_user(self):
-        pass
+    # def remove_user(self):
+    #     pass
 
 #-------------------------------------
 

@@ -1,15 +1,17 @@
 
 class Loan:
 
-    def __init__(self, house_price=None, duration = None):
-        self.duration = duration
+    def __init__(self, house_id=None, house_price=None, duration = None):
+        self.house_id = house_id
         self.house_price = house_price
+        self.duration = duration
         self.status = "proposed"
-        self.interest = None
+        self.rate = None
         self.monthly_inst = None
+        self.total_amount = None
 
     def loan_calculator(self):
-        self.pick_interest()
+        self.pick_rate()
         self.calc_total_amount()
         self.calc_month()
 
@@ -17,13 +19,13 @@ class Loan:
         self.monthly_inst = self.total_amount / self.duration 
 
     def calc_total_amount(self):
-        self.total_amount = (1+self.interest) * self.house_price  
+        self.total_amount = (1+self.rate) * self.house_price  
 
-    def pick_interest(self):
-        # TODO: updated interests - hardcoded for now:
+    def pick_rate(self):
+        # TODO: updated rates - hardcoded for now:
         if (self.house_price>1000000):
-            self.interest = 0.002
+            self.rate = 0.002
         elif (self.house_price>500000):
-            self.interest = 0.007
+            self.rate = 0.007
         else:
-            self.interest = 0.01
+            self.rate = 0.01
