@@ -43,6 +43,8 @@ scrp.print_data()
 avail_house_data = scrp.get_data_dict()
 house_keys = list(avail_house_data.keys())
 
+del scrp
+
 ###########################################
 # run new service
 ###########################################
@@ -59,7 +61,7 @@ curr_user_id = 0
 while (exit_flag==False):
 
     # register new user in new service
-    input_house_id = int(input("\nPlease input property id (0 to %d):\t" % (len(avail_house_data))))
+    input_house_id = int(input("\nPlease input property id (0 to %d):\t" % (len(avail_house_data)-1)))
 
     curr_user = User(id=curr_user_id, house_id_interest=house_keys[input_house_id])
     nS.add_user(curr_user)
@@ -76,12 +78,12 @@ while (exit_flag==False):
         if (answer):
             exit_choice_flag = True
         else:
-            exit_choice_answer = input("\nPress 0 to continue, 1 to exit:\t")
+            exit_choice_answer = int(input("\nPress 0 to continue, 1 to exit choice:\t"))
             if (exit_choice_answer):
                 exit_choice_flag = True
 
     # ask for new user or exit
-    new_user_q = input("\nPress 1 for new user, or 0 to exit:\t") 
+    new_user_q = int(input("\nPress 1 for new user, or 0 to exit:\t"))
     if (new_user_q):
         curr_user_id += 1
     else:
