@@ -3,8 +3,6 @@ from selenium import webdriver
 from bs4 import BeautifulSoup
 import re
 
-# should create and clean the database
-
 class ImmoScraper:
 
     def __init__(self, base_url=None):
@@ -14,10 +12,6 @@ class ImmoScraper:
     def print_data(self):
         print("\n\nCleaned Data:\n\n", self.data)
         print("\n")
-
-    def check_succesful_scraping(self, houses):
-        if houses==[]:
-            raise Exception("No houses found. Check if scraping was succesful.")
 
     def get_web_data(self):
         # ignores "sponsored" from IMMOWEB
@@ -52,7 +46,11 @@ class ImmoScraper:
             cleaned_data[id_str] = price_str
 
         self.data = cleaned_data  # update member variable
-    
+
+    def check_succesful_scraping(self, houses):
+        if houses==[]:
+            raise Exception("No houses found. Check if scraping was succesful.")
+
     def clean_price(self, str):
         # removes ranges and euro signs. Keeps largest value.
         str = str.replace("\N{euro sign}","")
@@ -62,15 +60,14 @@ class ImmoScraper:
     def clean_id(self, str):
         return str.replace("classified_","")
 
-    def get_data(self):
+    def get_data_dict(self):
         return self.data
 
     def store_data(self,folder):
         Reader.save_data(folder, self.data)
         print("\n\nData saved succesfully.")
-        pass
 
     def load_data(self, folder):
         print("\n\nLoading data.")
         self.data = Reader.load_data(folder)
-        pass
+        self.data = self.data[()] 
