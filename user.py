@@ -10,7 +10,7 @@ class User:
         self.answers = []
 
     def set_user(self):
-        # should use reader to save data in json ? files
+        # should use reader to save data
         pass
 
     def get_user(self):

@@ -6,7 +6,7 @@ def new_choice_question(answer, exit_choice_flag):
     if (answer=='y'):
         exit_choice_flag = True
     else:
-        exit_choice_answer = int(input("\nPress 0 to continue, 1 to exit choice:\t"))
+        exit_choice_answer = int(input("\nPress 0 to continue \ 1 to exit:\t"))
         if (exit_choice_answer):
             exit_choice_flag = True
     return exit_choice_flag

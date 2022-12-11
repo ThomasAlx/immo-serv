@@ -97,21 +97,23 @@ class NewService:
     def set_web_scraper(self, url, folder):
         self.web_scraper = ImmoScraper(base_url=url, data_folder=folder)
 
-    def load_house_data(self):
+    def load_house_data(self, name):
 
-        self.web_scraper.load_data()
+        self.web_scraper.load_data(name)
 
         self.web_scraper.visualise_house_data()
 
         self.house_data = self.web_scraper.get_data_dict()
 
-        return self.house_data, list(self.house_data.keys())
-
-    def scrap_data(self):
+    def scrap_data(self, name):
 
         self.web_scraper.get_web_data()
 
-        self.web_scraper.store_data()
+        self.web_scraper.store_data(name)
+
+        self.web_scraper.visualise_house_data()
+
+        self.house_data = self.web_scraper.get_data_dict()
 
 
 

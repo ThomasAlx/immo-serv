@@ -13,7 +13,7 @@ url = "https://www.immoweb.be/en/search/house/for-sale/leuven/3000?countries=BE&
 
 data_folder = "data"
 
-scrap = False
+scrap = True
 
 ###########################################
 # New service
@@ -31,12 +31,12 @@ nS.set_web_scraper(url, data_folder)
 if (scrap):  # is going to scrap data from IMMOWEB
 
     # NEW SERVICE FUNCTIONALITY
-    nS.scrap_data()
+    nS.scrap_data("immo-cleaned-data.npy")
 
 else:  # load the data from data local folder
 
     # NEW SERVICE FUNCTIONALITY
-    nS.load_house_data()
+    nS.load_house_data("immo-cleaned-data.npy")
 
 ###########################################
 # Simulate user interface to use new service

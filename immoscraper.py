@@ -62,13 +62,13 @@ class ImmoScraper:
     def get_data_dict(self):
         return self.data
 
-    def store_data(self):
-        Reader.save_data(self.folder, self.data)
+    def store_data(self, name):
+        Reader.save_data(self.data_folder, self.data, name)
         print("\n\nData saved succesfully.")
 
-    def load_data(self):
+    def load_data(self, name):
         print("\n\nLoading data.")
-        self.data = Reader.load_data(self.data_folder)
+        self.data = Reader.load_data(self.data_folder, name)
         self.data = self.data[()] 
 
     def print_data(self):

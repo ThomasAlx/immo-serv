@@ -7,12 +7,12 @@ class Reader:
         pass
 
     @staticmethod
-    def save_data(folder, data):
-        np.save(os.path.join(folder, "immo-cleaned-data.npy"), data, allow_pickle=True)
+    def save_data(folder, data, name):
+        np.save(os.path.join(folder, name), data, allow_pickle=True)
 
     @staticmethod
-    def load_data(folder):
-        return np.load(os.path.join(folder, "immo-cleaned-data.npy"), allow_pickle=True)
+    def load_data(folder, name):
+        return np.load(os.path.join(folder, name), allow_pickle=True)
 
 
 
