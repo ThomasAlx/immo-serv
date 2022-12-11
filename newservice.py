@@ -61,7 +61,7 @@ class NewService:
         df = pd.DataFrame({'User ID'      :   [self.users[user_id].id],
              'House ID'     :   [proposal.house_id],
              'House Price\n[\N{euro sign}]'  :   [proposal.house_price],
-             'Loan Duration\n[months]':   [proposal.duration],
+             'Loan Duration\n[months]':   [proposal.loan_duration],
              'Rate'         :   [proposal.rate],
              'Final Price\n[\N{euro sign}]'  :   [proposal.total_amount],
              'Montlhy Pay\n[\N{euro sign}]'  :   [proposal.monthly_inst]}) 
