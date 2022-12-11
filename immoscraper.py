@@ -1,17 +1,16 @@
 from reader import Reader
 from selenium import webdriver
 from bs4 import BeautifulSoup
+from tabulate import tabulate
+import pandas as pd
 import re
 
 class ImmoScraper:
 
-    def __init__(self, base_url=None):
+    def __init__(self, base_url=None, data_folder=None):
         self.base_url = base_url
+        self.data_folder = data_folder
         self.data = None
-
-    def print_data(self):
-        print("\n\nCleaned Data:\n\n", self.data)
-        print("\n")
 
     def get_web_data(self):
         # ignores "sponsored" from IMMOWEB
@@ -63,11 +62,23 @@ class ImmoScraper:
     def get_data_dict(self):
         return self.data
 
-    def store_data(self,folder):
-        Reader.save_data(folder, self.data)
+    def store_data(self):
+        Reader.save_data(self.folder, self.data)
         print("\n\nData saved succesfully.")
 
-    def load_data(self, folder):
+    def load_data(self):
         print("\n\nLoading data.")
-        self.data = Reader.load_data(folder)
+        self.data = Reader.load_data(self.data_folder)
         self.data = self.data[()] 
+
+    def print_data(self):
+        print("\n\nCleaned Data:\n\n", self.data)
+        print("\n")
+
+    def visualise_house_data(self):
+        df = pd.DataFrame({'House ID'      :   [i for i in range(len(self.data))],
+             'House ID'     :   [key for key in self.data.keys()],
+             'House Price\n[\N{euro sign}]'  :   [self.data[key] for key in self.data.keys()]}) 
+        print("\n\n##############################################################")
+        print("Scraped Data from IMMOWEB:\n")
+        print(tabulate(df, headers='keys', tablefmt='psql'))
