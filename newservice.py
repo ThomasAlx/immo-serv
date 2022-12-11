@@ -78,26 +78,6 @@ class NewService:
         # adds a loan to proposed list
         self.loans[user_id].append(proposal)
 
-
-            # self.accepted_loans[user_id] = proposal
-
-    # def remove_loan(self):
-    #     pass
-
-    # def load_loans(self):
-    #     # uses reader to load user database
-    #     pass
-    
-    # def store_loans(self):
-    #     # uses reader to write in json file
-    #     pass
-
-    # def get_loan(self):
-    #     pass
-
-    # def set_loan_status(self):
-    #     pass
-
 #-------------------------------------
 
     def add_user(self, curr_user_id, input_house_id):
@@ -105,20 +85,6 @@ class NewService:
         new_user = User(id=curr_user_id, house_id_interest=keys[input_house_id])
         self.users.append(new_user)
         self.loans[new_user.id] = []
-
-    # def get_user(self):
-    #     pass
-
-    # def load_users(self):
-    #     # uses reader to load user database
-    #     pass
-    
-    # def store_users(self):
-    #     # uses reader to write in json file
-    #     pass
-
-    # def remove_user(self):
-    #     pass
 
 #-------------------------------------
 

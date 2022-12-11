@@ -3,6 +3,8 @@ from newservice import *
 from user import User
 from interface import *
 
+# uses new service
+
 #################################################
 # Parameters
 #################################################
@@ -14,13 +16,13 @@ data_folder = "data"
 scrap = False
 
 ###########################################
-# Generate new service
+# New service
 ###########################################
 
 nS = NewService()
 
 ###########################################
-# Scrap data from IMMOWEB
+# Scrap data from IMMOWEB using new service
 ###########################################
 
 # NEW SERVICE FUNCTIONALITY
@@ -37,7 +39,7 @@ else:  # load the data from data local folder
     nS.load_house_data()
 
 ###########################################
-# Simulate user interface
+# Simulate user interface to use new service
 ###########################################
 
 exit_flag = False
@@ -64,13 +66,17 @@ while (exit_flag==False):
 
         # user input: ask for new choice or exit 
         exit_choice_flag = new_choice_question(answer, exit_choice_flag)
-        
 
     # user input: ask for new user or exit
     curr_user_id, exit_flag = new_user_question(curr_user_id, exit_flag)
     
 
 # -------------------------------------------------
+
+###########################################
+# Invoke backend service via new service 
+# for visualisation
+###########################################
 
 # NEW SERVICE FUNCTIONALITY
 nS.visualise_overview()
