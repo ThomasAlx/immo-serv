@@ -1,7 +1,8 @@
 
 class Loan:
 
-    def __init__(self, house_id=None, house_price=None, loan_duration = None):
+    def __init__(self, house_id=None, house_price=None, loan_duration = None, id=None):
+        self.id = id
         self.house_id = house_id
         self.house_price = house_price
         self.loan_duration = loan_duration

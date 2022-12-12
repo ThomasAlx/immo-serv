@@ -55,6 +55,7 @@ while (exit_flag==False):
 
     # loop for user to get proposals for different loan durations
     exit_choice_flag = False
+    curr_loan_id = 0
     while(exit_choice_flag==False):
         
         # user input: preferred loan duration
@@ -62,10 +63,10 @@ while (exit_flag==False):
 
         # NEW SERVICE FUNCTIONALITY
         # invoke proposal calculation and visualization
-        answer = nS.propose_loan(curr_user_id, loan_duration)
+        answer = nS.propose_loan(curr_user_id, loan_duration, curr_loan_id)
 
         # user input: ask for new choice or exit 
-        exit_choice_flag = new_choice_question(answer, exit_choice_flag)
+        curr_loan_id, exit_choice_flag = new_choice_question(answer, exit_choice_flag, curr_loan_id)
 
     # user input: ask for new user or exit
     curr_user_id, exit_flag = new_user_question(curr_user_id, exit_flag)

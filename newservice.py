@@ -1,5 +1,4 @@
 from backendserv import BackEndService
-from loan import Loan
 from user import User
 import pandas as pd
 from tabulate import tabulate
@@ -10,42 +9,40 @@ class NewService:
     def __init__(self, house_data=None):
         self.house_data = house_data
         self.users = []
-        self.loans = {}  # dictionary of lists
         self.web_scraper = None
         pass
 
-    def propose_loan(self, user_id, loan_duration):
+    def propose_loan(self, user_id, loan_duration, loan_id):
         # main function of new service
 
-        proposal = self.calculate_loan(loan_duration, user_id)
+        self.calculate_loan(loan_duration, user_id, loan_id)
 
-        self.visualise_proposal(proposal, user_id)
+        self.visualise_proposal(user_id, loan_id)
 
         # user input to accept calculated loan
         answer = self.get_answer()
 
-        self.add_loan(proposal, answer, user_id)
+        self.set_loan_status(answer, user_id, loan_id)
 
         return answer
 
-    def calculate_loan(self, duration,user_id):
+    def calculate_loan(self, duration, user_id, loan_id):
         # Input:
         #       - duration: duration of loan in months
         #       - user_id:  id of user in self.users list
         # Output:
         #       - proposal: loan instance 
 
-        house_id = self.users[user_id].house_id_interest
+        curr_user = self.users[user_id]
+
+        house_id = curr_user.house_id_interest
         house_price = self.house_data[house_id]
         
         # loan interest
-        proposal = Loan(house_id, house_price, duration)
+        curr_user.set_loan(house_id, house_price, duration, loan_id) 
 
         # calculate loan specifics
-        proposal.loan_calculator()
-
-        # return loan object
-        return proposal
+        curr_user.calc_loan(loan_id)
 
     def get_answer(self):
         check_flag = True
@@ -57,7 +54,8 @@ class NewService:
                 check_flag = True
         return answer
 
-    def visualise_proposal(self, proposal, user_id):
+    def visualise_proposal(self, user_id, loan_id):
+        proposal = self.users[user_id].loans[loan_id]
         df = pd.DataFrame({'User ID'      :   [self.users[user_id].id],
              'House ID'     :   [proposal.house_id],
              'House Price\n[\N{euro sign}]'  :   [proposal.house_price],
@@ -69,14 +67,10 @@ class NewService:
         print("New Proposal:\n")
         print(tabulate(df, headers='keys', tablefmt='psql'))
         
-    def add_loan(self, proposal, answer, user_id):
+    def set_loan_status(self, answer, user_id, loan_id):
         # if accepted, it also adds it to the accepted list
         if (answer=='y'):
-            self.users[user_id].chose_loan_flag = True
-            proposal.status = "accepted"
-
-        # adds a loan to proposed list
-        self.loans[user_id].append(proposal)
+            self.users[user_id].loans[loan_id].status = "accepted"
 
 #-------------------------------------
 
@@ -84,7 +78,6 @@ class NewService:
         keys = list(self.house_data.keys())
         new_user = User(id=curr_user_id, house_id_interest=keys[input_house_id])
         self.users.append(new_user)
-        self.loans[new_user.id] = []
 
 #-------------------------------------
 
