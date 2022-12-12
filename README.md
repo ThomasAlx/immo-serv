@@ -1,7 +1,5 @@
 # immo-serv
 
-This project is created to accompany the presentation for the KBC traineeship selection procedure.
-
 Instructions:
 
         - Install the required packages given below.
