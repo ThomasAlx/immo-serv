@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 from tabulate import tabulate
 import pandas as pd
 import re
+import os
 
 class ImmoScraper:
 
@@ -63,6 +64,12 @@ class ImmoScraper:
         return self.data
 
     def store_data(self, name):
+        # check if folder "data" exists, otherwise create it
+        if os.path.exists("data"):
+            pass
+        else:
+            os.mkdir("data")
+        # save scraped data in data folder
         InOut.save_data(self.data_folder, self.data, name)
         print("\n\nData saved succesfully.")
 
