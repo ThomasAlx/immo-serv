@@ -1,6 +1,5 @@
 from immoscraper import *
 from newservice import *
-from user import User
 from interface import *
 
 # uses new service

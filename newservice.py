@@ -1,8 +1,9 @@
 from backendserv import BackEndService
 from user import User
+from immoscraper import ImmoScraper
+
 import pandas as pd
 from tabulate import tabulate
-from immoscraper import ImmoScraper
 
 class NewService:
 
