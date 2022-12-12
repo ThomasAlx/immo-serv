@@ -1,6 +1,8 @@
 import numpy as np
 import os
 
+# Used to store and load data in folders
+
 class InOut:
 
     def __init__(self):

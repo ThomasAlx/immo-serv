@@ -6,21 +6,26 @@ import pandas as pd
 import re
 import os
 
+# scraps data from IMMOWEB from the first page of a query for houses in Leuven
+
 class ImmoScraper:
 
     def __init__(self, base_url=None, data_folder=None):
-        self.base_url = base_url
-        self.data_folder = data_folder
-        self.data = None
+        self.base_url = base_url  # string
+        self.data_folder = data_folder  # string
+        self.data = None  # dictionary
 
     def get_web_data(self):
         # ignores "sponsored" from IMMOWEB
+        # invokes the package to scrap data from IMMOWEB
 
+        # get data
         driver = webdriver.Firefox()
         driver.get(self.base_url)
         html = driver.page_source
         data = BeautifulSoup(html,'html.parser')
 
+        # get house data from html
         houses = data.find_all('article', class_="card card--result card--xl")
 
         self.check_succesful_scraping(houses)
@@ -61,6 +66,7 @@ class ImmoScraper:
         return str.replace("classified_","")
 
     def get_data_dict(self):
+        # returns scraped data as dictionary
         return self.data
 
     def store_data(self, name):
@@ -74,6 +80,7 @@ class ImmoScraper:
         print("\n\nData saved succesfully.")
 
     def load_data(self, name):
+        # loads previously scraped and stored data from data folder
         print("\n\nLoading data.")
         self.data = InOut.load_data(self.data_folder, name)
         self.data = self.data[()] 

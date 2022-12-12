@@ -12,7 +12,7 @@ url = "https://www.immoweb.be/en/search/house/for-sale/leuven/3000?countries=BE&
 
 data_folder = "data"
 
-scrap = False
+scrap = True
 
 ###########################################
 # New service

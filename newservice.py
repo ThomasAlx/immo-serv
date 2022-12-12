@@ -8,10 +8,9 @@ from tabulate import tabulate
 class NewService:
 
     def __init__(self, house_data=None):
-        self.house_data = house_data
-        self.users = []
-        self.web_scraper = None
-        pass
+        self.house_data = house_data  # dictionary of the scraped data from IMMOWEB
+        self.users = []  # list of user objects
+        self.web_scraper = None  # object of scraper class
 
     def propose_loan(self, user_id, loan_duration, loan_id):
         # main function of new service
@@ -23,6 +22,7 @@ class NewService:
         # user input to accept calculated loan
         answer = self.get_answer()
 
+        # depending on the answer, it sets the loan status to proposed or accepted
         self.set_loan_status(answer, user_id, loan_id)
 
         return answer
@@ -34,18 +34,22 @@ class NewService:
         # Output:
         #       - proposal: loan instance 
 
+        # extract the current user
         curr_user = self.users[user_id]
 
+        # get the house id and price
         house_id = curr_user.house_id_interest
         house_price = self.house_data[house_id]
         
-        # loan interest
+        # sets parameters of current loan of current user
         curr_user.set_loan(house_id, house_price, duration, loan_id) 
 
         # calculate loan specifics
         curr_user.calc_loan(loan_id)
 
     def get_answer(self):
+        # user can reject or accept proposed loan
+
         check_flag = True
         while (check_flag):
             answer = input("\nTo accept proposal press: 'y' / To cancel press: 'n'\t")
@@ -56,6 +60,8 @@ class NewService:
         return answer
 
     def visualise_proposal(self, user_id, loan_id):
+        # visualises the proposal in a small table for the interface
+
         proposal = self.users[user_id].loans[loan_id]
         df = pd.DataFrame({'User ID'      :   [self.users[user_id].id],
              'House ID'     :   [proposal.house_id],
@@ -69,13 +75,15 @@ class NewService:
         print(tabulate(df, headers='keys', tablefmt='psql'))
         
     def set_loan_status(self, answer, user_id, loan_id):
-        # if accepted, it also adds it to the accepted list
+        # changes the status of the loan from "proposed" to "accepted"
         if (answer=='y'):
             self.users[user_id].loans[loan_id].status = "accepted"
 
 #-------------------------------------
 
     def add_user(self, curr_user_id, input_house_id):
+        # adds a user to the users list
+
         keys = list(self.house_data.keys())
         new_user = User(id=curr_user_id, house_id_interest=keys[input_house_id])
         self.users.append(new_user)
@@ -92,7 +100,8 @@ class NewService:
         self.web_scraper = ImmoScraper(base_url=url, data_folder=folder)
 
     def load_house_data(self, name):
-
+        # Loads data from npy file in data folder
+        #       if the user does not want to scrap new data.
         self.web_scraper.load_data(name)
 
         self.web_scraper.visualise_house_data()
@@ -100,6 +109,7 @@ class NewService:
         self.house_data = self.web_scraper.get_data_dict()
 
     def scrap_data(self, name):
+        # Scraps data from IMMOWEB and stores them in a npy file in data folder
 
         self.web_scraper.get_web_data()
 
