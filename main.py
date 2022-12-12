@@ -4,6 +4,8 @@ from interface import *
 
 # uses new service
 
+# scrap FLAG IS SET TO FALSE: SET TO TRUE IF YOU WANT TO USE THE SCRAPER 
+
 #################################################
 # Parameters
 #################################################
@@ -12,7 +14,7 @@ url = "https://www.immoweb.be/en/search/house/for-sale/leuven/3000?countries=BE&
 
 data_folder = "data"
 
-scrap = True
+scrap = False  # SET THIS TRUE IF YOU WANT TO USE WEBSCRAPER
 
 ###########################################
 # New service
