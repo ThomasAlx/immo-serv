@@ -1,4 +1,4 @@
-import reader
+from inout import *
 
 class User:
 

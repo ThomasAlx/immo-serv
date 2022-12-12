@@ -1,4 +1,4 @@
-from reader import Reader
+from inout import *
 from selenium import webdriver
 from bs4 import BeautifulSoup
 from tabulate import tabulate
@@ -63,12 +63,12 @@ class ImmoScraper:
         return self.data
 
     def store_data(self, name):
-        Reader.save_data(self.data_folder, self.data, name)
+        InOut.save_data(self.data_folder, self.data, name)
         print("\n\nData saved succesfully.")
 
     def load_data(self, name):
         print("\n\nLoading data.")
-        self.data = Reader.load_data(self.data_folder, name)
+        self.data = InOut.load_data(self.data_folder, name)
         self.data = self.data[()] 
 
     def print_data(self):
