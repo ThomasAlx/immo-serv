@@ -13,7 +13,7 @@ class BackEndService:
     @staticmethod
     def visualise(obj):
 
-        user_id, house_id, house_price, rate, final_price, month, status = [], [], [], [], [], [], []
+        user_id, house_id, house_price, rate, final_price, month, status, duration = [], [], [], [], [], [], [], []
 
         for user in obj.users:
 
@@ -26,16 +26,18 @@ class BackEndService:
                 final_price.append(loan.total_amount)
                 month.append(loan.monthly_inst)
                 status.append(loan.status)
+                duration.append(loan.loan_duration)
 
             # add empty line
             BackEndService.add_empty_line([user_id, house_id,
-                        house_price, rate, final_price, month, status])
+                        house_price, rate, final_price, month, status, duration])
 
         temp = {}
         temp['User ID'] = user_id
         temp['House ID'] = house_id
         temp['House Price\n[\N{euro sign}]'] = house_price
         temp['Rate'] = rate
+        temp['Loan Duration\n[Months]'] = duration
         temp['Final Price\n[\N{euro sign}]'] = final_price
         temp['Montlhy Payment\n[\N{euro sign}]'] = month
         temp['Status'] = status
